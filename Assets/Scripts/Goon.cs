@@ -29,7 +29,7 @@ public class Goon : MonoBehaviour
 
         if (transform.position.y < Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).y)
         {
-            //screen boundary logic
+            //implement later
         }
     }
 
@@ -52,13 +52,15 @@ public class Goon : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+   void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") || collision.gameObject.CompareTag("MysteryBox") || collision.gameObject.CompareTag("Player"))
     {
-        if (((1 << collision.gameObject.layer) & wallLayer) != 0)
-        {
-            Flip();
-        }
+        Flip();
     }
+}
+
+
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -90,5 +92,6 @@ public class Goon : MonoBehaviour
         Destroy(gameObject, 1f);
     }
 }
+
 
 
